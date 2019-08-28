@@ -337,12 +337,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	resetprop.zero   # Required for setting ro.*-properties for dual-SIM support
 
-ifneq (,$(wildcard lineage-sdk/ ))
-# Trust	
-PRODUCT_PACKAGES += \
-    vendor.lineage.trust@1.0-service
-endif
-
 # USB
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-impl \

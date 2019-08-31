@@ -19,14 +19,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Common Overlays
 DEVICE_PACKAGE_OVERLAYS += device/samsung/zero-common/overlay
-
-ifneq (,$(wildcard lineage-sdk/ ))
 DEVICE_PACKAGE_OVERLAYS += device/samsung/zero-common/overlay-lineage
-else
-DEVICE_PACKAGE_OVERLAYS += device/samsung/zero-common/overlay-aosp
-endif
 
-ifneq ($(filter zerofltespr zeroltespr,$(TARGET_DEVICE)),)
+ifneq ($(findstring zerofltespr zeroltespr,$(TARGET_PRODUCT)),)
 DEVICE_PACKAGE_OVERLAYS += device/samsung/zero-common/overlay-cdma
 else
 DEVICE_PACKAGE_OVERLAYS += device/samsung/zero-common/overlay-gsm
@@ -76,7 +71,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.vulkan.level-1.xml:system/etc/permissions/android.hardware.vulkan.level.xml \
- 	frameworks/native/data/etc/android.hardware.vulkan.version-1_0_3.xml:system/etc/permissions/android.hardware.vulkan.version.xml \
+    frameworks/native/data/etc/android.hardware.vulkan.version-1_0_3.xml:system/etc/permissions/android.hardware.vulkan.version.xml \
     frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:system/etc/permissions/android.hardware.vulkan.compute.xml \
     frameworks/native/data/etc/android.software.freeform_window_management.xml:system/etc/permissions/android.software.freeform_window_management.xml \
     frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
@@ -371,11 +366,5 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, hardware/samsung_slsi-cm/exynos5/exynos5.mk)
 $(call inherit-product, hardware/samsung_slsi-cm/exynos7420/exynos7420.mk)
 
-# Get private non-open-source blobs
-$(call inherit-product-if-exists, vendor/samsung/zero-private/zero-private-vendor.mk)
-
 # Get non-open-source specific aspects
 $(call inherit-product-if-exists, vendor/samsung/zero-common/zero-common-vendor.mk)
-
-# include private blob configs
--include vendor/samsung/zero-private/config.mk
